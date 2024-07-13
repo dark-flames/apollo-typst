@@ -7,7 +7,5 @@ tags=["documentation"]
 
 [extra]
 typst = "test"
+hide_title = true
 +++
-
-
-aaa

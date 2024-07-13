@@ -13,17 +13,7 @@ taxonomies = [
     { name = "tags", feed = true }
 ]
 
-menu = [
-    { name = "/posts", url = "/posts", weight = 1 },
-    { name = "/projects", url = "/projects", weight = 2 },
-    { name = "/about", url = "/about", weight = 3 },
-    { name = "/tags", url = "/tags", weight = 4 },
-]
 
-socials = [
-  { name = "twitter", url = "https://twitter.com/Darkf1ames", icon = "twitter" },
-  { name = "github", url = "https://github.com/dark-flames", icon = "github" },
-]
 
 [markdown]
 # Whether to do syntax highlighting
@@ -31,4 +21,17 @@ socials = [
 highlight_code = true
 
 [extra]
-# Put all your custom variables here
+menu = [
+    { name = "/posts", url = "/posts", weight = 1 },
+    { name = "/tags", url = "/tags", weight = 2 },
+    { name = "/about", url = "/about", weight = 3 },
+]
+
+socials = [
+  { name = "twitter", url = "https://twitter.com/Darkf1ames", icon = "twitter" },
+  { name = "github", url = "https://github.com/dark-flames", icon = "github" },
+]
+
+insert_anchor_links = "heading"
+
+dynamic_note = true
