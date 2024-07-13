@@ -3,7 +3,8 @@
 # Get all subdirectories in the current working directory
 subpaths=$(find . -mindepth 1 -maxdepth 1 -type d)
 
-rm -rf ../static/typst/*
+rm -rf ../static/typst
+mkdir ../static/typst
 
 # Loop through each subpath
 for p in $subpaths; do
