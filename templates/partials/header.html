@@ -140,116 +140,11 @@
     {% if page.extra.typst | default(value=false) %}
         <script type="module" src={{ get_url(path="js/main.bundle.js") }}></script>
         <link rel="stylesheet" href={{ get_url(path="css/main.bundle.css") }}>
-        <style>
-            #typst-app-container {
-              padding: 10px;
-              display: flex;
-              justify-content: center;
-            }
-      
-            #typst-app {
-              --typst-dom-scale: 1.5;
-              margin: 5px;
-            }
-      
-            .typst-dom-page {
-              width: calc(var(--data-page-width, 100%) * var(--typst-dom-scale));
-              height: calc(var(--data-page-height) * var(--typst-dom-scale));
-              --data-text-width: calc(1px * var(--typst-dom-scale));
-              --data-text-height: calc(1px * var(--typst-dom-scale));
-              margin: auto;
-            }
-      
-            .typst-back-canvas {
-              position: absolute;
-              z-index: -1;
-              width: calc(var(--data-page-width, 100%) * var(--typst-dom-scale));
-              height: calc(var(--data-page-height) * var(--typst-dom-scale));
-              pointer-events: none;
-            }
-      
-            .typst-svg-page {
-              position: absolute;
-              z-index: 0;
-              width: calc(var(--data-page-width, 100%) * var(--typst-dom-scale));
-              height: calc(var(--data-page-height) * var(--typst-dom-scale));
-            }
-      
-            .typst-html-semantics {
-              position: absolute;
-              z-index: 2;
-              width: calc(var(--data-page-width, 100%) * var(--typst-dom-scale));
-              height: calc(var(--data-page-height) * var(--typst-dom-scale));
-              color: transparent;
-              font-family: monospace;
-              white-space: pre;
-            }
-      
-            .typst-html-semantics span {
-              transform-origin: left top;
-              position: absolute;
-              display: inline-block;
-              left: 0;
-              top: 0;
-            }
-      
-            .typst-content-hint {
-              position: absolute;
-              display: inline-block;
-              width: 1px;
-              height: 1px;
-              overflow: hidden;
-            }
-      
-            .typst-html-semantics a {
-              position: absolute;
-              display: inline-block;
-            }
-      
-            /* set transparent itself */
-            .typst-content-group {
-              pointer-events: visible;
-            }
-      
-            .typst-html-semantics span::-moz-selection {
-              color: transparent;
-              background: #7db9dea0;
-            }
-      
-            .typst-html-semantics span::selection {
-              color: transparent;
-              background: #7db9dea0;
-            }
-      
-            .typst-html-semantics *::-moz-selection {
-              color: transparent;
-              background: transparent;
-            }
-      
-            .typst-html-semantics *::selection {
-              color: transparent;
-              background: transparent;
-            }
-      
-            .typst-content-fallback {
-              color: transparent;
-              background: transparent;
-            }
-      
-            .pseudo-link,
-            .typst-text {
-              pointer-events: none;
-            }
-      
-            /* body {
-              background: white;
-            } */
-          </style>
         <script>
             /// https://segmentfault.com/a/1190000016574288
             (function () {
                 var ie = !!(window.attachEvent && !window.opera);
-                var wk = /webkit\/(\d+)/i.test(navigator.userAgent) && RegExp.$1 < 525;
+                var wk = /webkit\/(\d+)/i.test(navigator.userAgent) && RegExp.$1 < 400;
                 var fn = [];
                 var run = function () {
                     for (var i = 0; i < fn.length; i++) fn[i]();
@@ -280,20 +175,19 @@
             window.typstBindSemantics = function () {};
             window.typstBindSvgDom = function () {};
             window.captureStack = function () {
-            return undefined;
-        };
-
+                return undefined;
+            };
             
             document.addEventListener("DOMContentLoaded", () => {
                 let plugin = window.TypstRenderModule.createTypstRenderer();
                 plugin
                 .init({
                     getModule: () =>
-                    '{{ get_url(path="wasm/typst_ts_renderer_bg.wasm") }}',
+                        '{{ get_url(path="wasm/typst_ts_renderer_bg.wasm") }}',
                 })
                 .then(async () => {
                     const artifactData = await fetch(
-                    '{{ get_url(path="typst/" ~ page.extra.typst~ "/main.multi.sir.in") }}',
+                        '{{ get_url(path="typst/" ~ page.extra.typst~ "/main.multi.sir.in") }}',
                     )
                     .then(response => response.arrayBuffer())
                     .then(buffer => new Uint8Array(buffer));
@@ -301,15 +195,14 @@
                     const appElem = document.getElementById('typst-app');
                     let renderStart = undefined;
                     const canvasRender = async ses => {
-                    await plugin.renderToCanvas({
-                        // renderSession: ses,
-                        artifactContent: artifactData,
-                        container: appElem,
-                        backgroundColor: '#343541',
-                        // backgroundColor: '#ffffff',
-                        pixelPerPt: 4.5,
-                    });
-                    console.log('render time!!!!!!!!!', performance.now() - renderStart);
+                        await plugin.renderToCanvas({
+                            // renderSession: ses,
+                            artifactContent: artifactData,
+                            container: appElem,
+                            backgroundColor: '#343541',
+                            // backgroundColor: '#ffffff',
+                            pixelPerPt: 4.5,
+                        });
                     };
                     const domRender = async ses => {
                     const dom = await plugin.renderDom({
@@ -318,8 +211,6 @@
                         pixelPerPt: 4.5,
                         domScale: 1.5,
                     });
-                    console.log('render time!!!!!!!!!', performance.now() - renderStart);
-                    console.log(dom);
 
                     dom.addChangement(['new', artifactData]);
 
@@ -331,14 +222,11 @@
                     ses =>
                         new Promise(async dispose => {
                         renderStart = performance.now();
-                        // await canvasRender(ses);
                         await domRender(ses);
 
                         void dispose;
                         }),
                     );
-
-                    console.log('render done');
                 });
             });
           </script>

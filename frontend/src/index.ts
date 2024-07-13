@@ -7,5 +7,5 @@ import '@myriaddreamin/typst-ts-renderer/pkg/typst_ts_renderer_bg.wasm';
 
 export default {
     ...Typst,
-    ...SVG
+    ...SVG,
 };

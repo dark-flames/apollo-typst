@@ -1,7 +1,7 @@
 {% macro typst(page) %}
 <main>
     <article>
-        {% if page.extra.hide_title | default(value=false) %}
+        {% if not page.extra.hide_title %}
             <div class="title">
                 {#<h1 class="title">{{ page.title }}</h1>#}
                 {{ post_macros::page_header(title=page.title) }}
@@ -52,6 +52,7 @@
 
                     </div>
             </div>
+            <br />
         {% endif %}
 
         {% if page.extra.tldr %}
