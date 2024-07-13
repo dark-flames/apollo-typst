@@ -27,7 +27,7 @@ Typst blog template based on [Zola](https://getzola.org), [typst.ts](https://git
 ### Build
 
 ```shell
-make #build
-make clean #clean
-make serve #serve
+make       # build
+make clean # clean
+make dev   # dev server
 ```

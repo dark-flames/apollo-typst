@@ -1,6 +1,7 @@
 .PHONY: fe typst site clean
 
-all: fe typst build
+all: clean fe typst build
+dev: clean fe typst serve
 
 fe:
 	cd frontend && npm install && npm run build:prod
