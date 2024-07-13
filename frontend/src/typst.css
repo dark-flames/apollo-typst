@@ -1,0 +1,150 @@
+.typst-dom-page {
+    width: var(--data-page-width, 100%);
+    height: var(--data-page-height);
+    --data-text-width: 1px;
+    --data-text-height: 1px;
+    margin: auto;
+  }
+  
+  .typst-back-canvas {
+    position: absolute;
+    z-index: -1;
+    width: var(--data-page-width, 100%);
+    height: var(--data-page-height);
+    pointer-events: none;
+  }
+  
+  .typst-svg-page {
+    position: absolute;
+    z-index: 0;
+    width: var(--data-page-width, 100%);
+    height: var(--data-page-height);
+    max-height: none;
+  }
+
+  .typst-content-link {
+    border-bottom: none;
+  }
+
+  .typst-content-link:hover {
+    background-color: inherit;
+    color: inherit;
+  }
+  
+  .typst-html-semantics {
+    position: absolute;
+    z-index: 2;
+    width: var(--data-page-width, 100%);
+    height: var(--data-page-height);
+    color: transparent;
+    font-family: monospace;
+    white-space: pre;
+  }
+  
+  .typst-html-semantics span {
+    transform-origin: left;
+    position: absolute;
+    display: inline-block;
+    left: 0;
+    top: 0;
+  }
+  
+  .typst-content-hint {
+    position: absolute;
+    display: inline-block;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+  
+  .typst-html-semantics a {
+    position: absolute;
+    display: inline-block;
+  }
+  
+  /* set transparent itself */
+  .typst-content-group {
+    pointer-events: visible;
+  }
+  
+  .typst-html-semantics span::-moz-selection {
+    color: transparent;
+    background: #7db9dea0;
+  }
+  
+  .typst-html-semantics span::selection {
+    color: transparent;
+    background: #7db9dea0;
+  }
+  
+  .typst-html-semantics *::-moz-selection {
+    color: transparent;
+    background: transparent;
+  }
+  
+  .typst-html-semantics *::selection {
+    color: transparent;
+    background: transparent;
+  }
+  
+  .typst-content-fallback {
+    color: transparent;
+    background: transparent;
+  }
+  
+  .pseudo-link,
+  .typst-text {
+    pointer-events: none;
+  }
+  .typst-svg-page {
+    fill: none;
+  }
+  .outline_glyph path,
+  path.outline_glyph {
+    fill: var(--glyph_fill);
+    stroke: var(--glyph_stroke);
+  }
+  
+  .outline_glyph path,
+  path.outline_glyph {
+    transition: 0.2s fill stroke;
+  }
+  .hover .typst-text {
+    --glyph_fill: #66bab7;
+    --glyph_stroke: #66bab7;
+  }
+  
+  .typst-jump-ripple,
+  .typst-debug-react-ripple {
+    width: 0;
+    height: 0;
+    background-color: transparent;
+    position: absolute;
+    border-radius: 50%;
+  }
+  .typst-jump-ripple {
+    border: 1px solid #66bab7;
+  }
+  .typst-debug-react-ripple {
+    border: 1px solid #cb1b45;
+  }
+  @keyframes typst-jump-ripple-effect {
+    to {
+      width: 10vw;
+      height: 10vw;
+      opacity: 0.01;
+      margin: -5vw;
+    }
+  }
+  @keyframes typst-debug-react-ripple-effect {
+    to {
+      width: 3vw;
+      height: 3vw;
+      opacity: 0.01;
+      margin: -1.5vw;
+    }
+  }
+  
+  .focus .typst-text {
+    --glyph_fill: var(--sidebar-active);
+  }

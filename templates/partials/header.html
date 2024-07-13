@@ -1,0 +1,389 @@
+{% import "macros/macros.html" as post_macros %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    {% if page.extra.meta %}
+         <!-- the meta data config goes here  -->
+         {% for data in page.extra.meta %}
+             <meta
+                 {% for key, value in data%}
+                     {% if key == "property" and value == "og:title"%}
+                         {% set_global page_has_og_title = true -%}
+                     {% endif %}
+                     {% if key == "property" and value == "og:description"%}
+                         {% set_global page_has_og_description = true -%}
+                     {% endif %}
+                     {% if key == "name" and value == "description"%}
+                         {% set_global page_has_description = true -%}
+                     {% endif %}
+                     {{ key }}="{{ value }}"
+                {% endfor %}
+            />
+        {% endfor %}
+    {% endif %}
+
+    {# Site title #}
+    {% set current_path = current_path | default(value="/") %}
+    {% if current_path == "/" %}
+    <title>
+        {{ config.title | default(value="Home") }}
+    </title>
+    {% if not page_has_og_title %}
+        <meta property="og:title" content="{{ config.title | default(value="Home") }}" />
+    {% endif %}
+
+    {% else %}
+    <title>
+        {% if page.title %} {{ page.title }}
+        {% elif section.title %} {{ section.title }}
+        {% elif config.title %} {{ config.title }}
+        {% else %} Post {% endif %}
+    </title>
+
+        {% if not page_has_og_title %}
+            <meta property="og:title" content="{% if page.title -%}{{ page.title }}{% elif config.title -%}{{ config.title }}{% else -%}Post{% endif -%}" />
+        {% endif %}
+     {% endif %}
+
+     {% if not page_has_og_description %}
+         {% if page.description %}
+             <meta property="og:description" content="{{ page.description }}" />
+         {% elif config.description %}
+             <meta property="og:description" content="{{ config.description }}" />
+         {% endif %}
+     {% endif %}
+
+     {% if not page_has_description %}
+         {% if page.description %}
+             <meta name="description" content="{{ page.description }}" />
+         {% elif config.description %}
+             <meta name="description" content="{{ config.description }}" />
+         {% endif %}
+    {% endif %}
+
+    {# Favicon #}
+    {% if config.extra.favicon %}
+        <link rel="icon" type="image/png" href={{ config.extra.favicon }} />
+    {% endif %}
+
+    {# Font from cdn or disk #}
+    {% if config.extra.use_cdn | default(value=false) %}
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jetbrains-mono@1.0.6/css/jetbrains-mono.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/space-grotesk@4.5.8/index.min.css">
+    {% else %}
+        <link href={{ get_url(path="fonts.css") }} rel="stylesheet" />
+    {% endif %}
+
+    {# Analytics #}
+    {% if config.extra.analytics.enabled %}
+        {% if config.extra.analytics.umami.website_id %}
+            {% set website_id = config.extra.analytics.umami.website_id %}
+            {% set host_url = config.extra.analytics.umami.host_url | default(value="https://analytics.eu.umami.is") %}
+
+            <script>
+                (function () {
+                  var el = document.createElement('script');
+                  el.setAttribute('src', '/js/imamu.js');
+                  el.setAttribute('data-website-id', '{{ website_id }}');
+                  el.setAttribute('data-host-url', '{{ host_url }}');
+                  document.body.appendChild(el);
+                })();
+              </script>
+            <script async src="/js/imamu.js" data-website-id="{{ website_id }}" data-host-url="{{ host_url }}"></script>
+        {% endif %}
+
+        {% if config.extra.analytics.goatcounter.user %}
+            {% set user = config.extra.analytics.goatcounter.user %}
+            {% set host = config.extra.analytics.goatcounter.host | default(value="goatcounter.com") %}
+
+            <script data-goatcounter="https://{{ user }}.{{ host }}/count" async src="{{ get_url(path="js/count.js") }}"></script>
+            <noscript>
+                {# EasyList blocks '.com/count?', so we have to use '.com//count' #}
+                <img src="https://{{ user }}.{{ host }}//count?p={{ current_path }}&t={{ page.title | default(value=config.title) }}">
+            </noscript>
+        {% endif %}
+    {% endif %}
+
+    {# Fancy Codeblock #}
+    {% if config.extra.fancy_code %}
+        <script src={{ get_url(path="js/codeblock.js") }}></script>
+    {% endif %}
+
+    {# Table of contents #}
+    {% if config.extra.toc | default(value=false) %}
+        <script src={{ get_url(path="js/toc.js") }}></script>
+    {% endif %}
+    
+    {# Dynamic Note #}
+    {% if config.extra.dynamic_note | default(value=false) %}
+        <script src={{ get_url(path="js/note.js") }}></script>
+    {% endif %}
+
+    {% if config.extra.mathjax | default(value=false) %}
+        {% if config.extra.mathjax_dollar_inline_enable | default(value=false) %}
+            <script>
+            MathJax = {
+              tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']]
+              }
+            };
+            </script>
+        {% endif %}
+        <script type="text/javascript" id="MathJax-script" async
+          src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+        </script>
+    {% endif %}
+
+    {% if page.extra.typst | default(value=false) %}
+        <script type="module" src={{ get_url(path="js/main.bundle.js") }}></script>
+        <link rel="stylesheet" href={{ get_url(path="css/main.bundle.css") }}>
+        <style>
+            #typst-app-container {
+              padding: 10px;
+              display: flex;
+              justify-content: center;
+            }
+      
+            #typst-app {
+              --typst-dom-scale: 1.5;
+              margin: 5px;
+            }
+      
+            .typst-dom-page {
+              width: calc(var(--data-page-width, 100%) * var(--typst-dom-scale));
+              height: calc(var(--data-page-height) * var(--typst-dom-scale));
+              --data-text-width: calc(1px * var(--typst-dom-scale));
+              --data-text-height: calc(1px * var(--typst-dom-scale));
+              margin: auto;
+            }
+      
+            .typst-back-canvas {
+              position: absolute;
+              z-index: -1;
+              width: calc(var(--data-page-width, 100%) * var(--typst-dom-scale));
+              height: calc(var(--data-page-height) * var(--typst-dom-scale));
+              pointer-events: none;
+            }
+      
+            .typst-svg-page {
+              position: absolute;
+              z-index: 0;
+              width: calc(var(--data-page-width, 100%) * var(--typst-dom-scale));
+              height: calc(var(--data-page-height) * var(--typst-dom-scale));
+            }
+      
+            .typst-html-semantics {
+              position: absolute;
+              z-index: 2;
+              width: calc(var(--data-page-width, 100%) * var(--typst-dom-scale));
+              height: calc(var(--data-page-height) * var(--typst-dom-scale));
+              color: transparent;
+              font-family: monospace;
+              white-space: pre;
+            }
+      
+            .typst-html-semantics span {
+              transform-origin: left top;
+              position: absolute;
+              display: inline-block;
+              left: 0;
+              top: 0;
+            }
+      
+            .typst-content-hint {
+              position: absolute;
+              display: inline-block;
+              width: 1px;
+              height: 1px;
+              overflow: hidden;
+            }
+      
+            .typst-html-semantics a {
+              position: absolute;
+              display: inline-block;
+            }
+      
+            /* set transparent itself */
+            .typst-content-group {
+              pointer-events: visible;
+            }
+      
+            .typst-html-semantics span::-moz-selection {
+              color: transparent;
+              background: #7db9dea0;
+            }
+      
+            .typst-html-semantics span::selection {
+              color: transparent;
+              background: #7db9dea0;
+            }
+      
+            .typst-html-semantics *::-moz-selection {
+              color: transparent;
+              background: transparent;
+            }
+      
+            .typst-html-semantics *::selection {
+              color: transparent;
+              background: transparent;
+            }
+      
+            .typst-content-fallback {
+              color: transparent;
+              background: transparent;
+            }
+      
+            .pseudo-link,
+            .typst-text {
+              pointer-events: none;
+            }
+      
+            /* body {
+              background: white;
+            } */
+          </style>
+        <script>
+            /// https://segmentfault.com/a/1190000016574288
+            (function () {
+                var ie = !!(window.attachEvent && !window.opera);
+                var wk = /webkit\/(\d+)/i.test(navigator.userAgent) && RegExp.$1 < 525;
+                var fn = [];
+                var run = function () {
+                    for (var i = 0; i < fn.length; i++) fn[i]();
+                };
+                var d = document;
+                d.ready = function (f) {
+                    if (!ie && !wk && d.addEventListener) return d.addEventListener('DOMContentLoaded', f, false);
+                    if (fn.push(f) > 1) return;
+                    if (ie)
+                        (function () {
+                            try {
+                                d.documentElement.doScroll('left');
+                                run();
+                            } catch (err) {
+                                setTimeout(arguments.callee, 0);
+                            }
+                        })();
+                    else if (wk)
+                        var t = setInterval(function () {
+                            if (/^(loaded|complete)$/.test(d.readyState)) clearInterval(t), run();
+                        }, 0);
+                };
+            })();
+
+            window.captureStack = function() { }
+        </script>
+        <script>
+            window.typstBindSemantics = function () {};
+            window.typstBindSvgDom = function () {};
+            window.captureStack = function () {
+            return undefined;
+        };
+
+            
+            document.addEventListener("DOMContentLoaded", () => {
+                let plugin = window.TypstRenderModule.createTypstRenderer();
+                plugin
+                .init({
+                    getModule: () =>
+                    '{{ get_url(path="wasm/typst_ts_renderer_bg.wasm") }}',
+                })
+                .then(async () => {
+                    const artifactData = await fetch(
+                    '{{ get_url(path="typst/" ~ page.extra.typst~ "/main.multi.sir.in") }}',
+                    )
+                    .then(response => response.arrayBuffer())
+                    .then(buffer => new Uint8Array(buffer));
+
+                    const appElem = document.getElementById('typst-app');
+                    let renderStart = undefined;
+                    const canvasRender = async ses => {
+                    await plugin.renderToCanvas({
+                        // renderSession: ses,
+                        artifactContent: artifactData,
+                        container: appElem,
+                        backgroundColor: '#343541',
+                        // backgroundColor: '#ffffff',
+                        pixelPerPt: 4.5,
+                    });
+                    console.log('render time!!!!!!!!!', performance.now() - renderStart);
+                    };
+                    const domRender = async ses => {
+                    const dom = await plugin.renderDom({
+                        renderSession: ses,
+                        container: appElem,
+                        pixelPerPt: 4.5,
+                        domScale: 1.5,
+                    });
+                    console.log('render time!!!!!!!!!', performance.now() - renderStart);
+                    console.log(dom);
+
+                    dom.addChangement(['new', artifactData]);
+
+                    window.addEventListener('resize', () => dom.addViewportChange());
+                    window.addEventListener('scroll', () => dom.addViewportChange());
+                    };
+
+                    plugin.runWithSession(
+                    ses =>
+                        new Promise(async dispose => {
+                        renderStart = performance.now();
+                        // await canvasRender(ses);
+                        await domRender(ses);
+
+                        void dispose;
+                        }),
+                    );
+
+                    console.log('render done');
+                });
+            });
+          </script>
+    {% endif %}
+
+    {# RSS #}
+    <link rel="alternate" type="application/atom+xml" title="{{ config.title }}" href="{{ get_url(path="atom.xml", trailing_slash=false) }}">
+
+
+    {% set theme = config.extra.theme | default(value="toggle") %}
+    {% if theme == "dark" %}
+        <link rel="stylesheet" type="text/css" href="{{ get_url(path='theme/dark.css') }}" />
+    {% elif theme == "light" %}
+        <link rel="stylesheet" type="text/css" href={{ get_url(path="theme/light.css") }} />
+    {% elif theme == "auto" %}
+        <link rel="stylesheet" type="text/css" href={{ get_url(path="theme/light.css") }} />
+        <link rel="stylesheet" type="text/css" href="{{ get_url(path='theme/dark.css') }}" media="(prefers-color-scheme: dark)" />
+    {% elif theme == "toggle" %}
+        <link rel="stylesheet" type="text/css" href={{ get_url(path="theme/light.css") }} />
+        <link id="darkModeStyle" rel="stylesheet" type="text/css" href="{{ get_url(path='theme/dark.css') }}" />
+    {% endif %}
+
+    <!-- Set the correct theme in the script -->
+    <script src={{ get_url(path="js/themetoggle.js") }}></script>
+    {% if theme == "dark" %}
+        <script>setTheme("dark");</script>
+    {% elif theme == "light" %}
+        <script>setTheme("light");</script>
+    {% elif theme == "auto" %}
+        <script>
+            if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                setTheme("dark");
+            } else {
+                setTheme("light");
+            }
+        </script>
+    {% else %}
+        <script>setTheme(getSavedTheme());</script>
+    {% endif %}
+
+    <link rel="stylesheet" type="text/css" media="screen" href={{ get_url(path="main.css") }} />
+
+    {% if config.extra.stylesheets %}
+        {% for stylesheet in config.extra.stylesheets %}
+            <link rel="stylesheet" href="{{ get_url(path=stylesheet) }}">
+        {% endfor %}
+    {% endif %}
+</head>

@@ -1,0 +1,30 @@
+{
+  "name": "dark-flames.github.io",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.ts",
+  "scripts": {
+    "build:dev": "npm run clean && webpack --mode development",
+    "build:prod": "npm run clean && webpack --mode production",
+    "clean": "rimraf ../static/js/* ../static/css/* ../static/wasm/*"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^20.14.10",
+    "css-loader": "^7.1.2",
+    "file-loader": "^6.2.0",
+    "mini-css-extract-plugin": "^2.9.0",
+    "rimraf": "^6.0.1",
+    "style-loader": "^4.0.0",
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.5.3",
+    "webpack": "^5.93.0",
+    "webpack-cli": "^5.1.4"
+  },
+  "dependencies": {
+    "@myriaddreamin/typst-ts-renderer": "^0.5.0-rc5",
+    "@myriaddreamin/typst.ts": "^0.5.0-rc5"
+  }
+}

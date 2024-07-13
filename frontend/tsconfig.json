@@ -1,0 +1,20 @@
+{
+    "compilerOptions": {
+      "types": ["./src/global.d.ts", "node"],
+      "baseUrl": ".",
+      "outDir": "dist",
+      "target": "ES2018",
+      "allowJs": true,
+      "checkJs": false,
+      "noImplicitAny": true,
+      "importHelpers": true,
+      "isolatedModules": true,
+      "strictNullChecks": true,
+      "declaration": false,
+      "stripInternal": true,
+      "paths": {
+        "@myriaddreamin/typst.ts/*": ["node_modules/@myriaddreamin/typst.ts/*"],
+      },
+      "lib": ["ES5", "ES6", "ES7", "ES2018", "dom"]
+    }
+  }
