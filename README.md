@@ -31,3 +31,31 @@ make       # build
 make clean # clean
 make dev   # dev server
 ```
+
+### Deployment[WIP]
+To deploy your site to GitHub Pages, you can use the provided GitHub Action:
+
+`.github/workflows/deploy.yml`:
+
+```yaml
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout
+      uses: actions/checkout@v4
+      with:
+        submodules: recursive
+    - uses: ../.github/actions/deploy-action@main
+      with:
+      access-token: ${{ secrets.ACCESS_TOKEN }}
+      deploy-branch: static
+    # deploy-repo: another/repo
+```

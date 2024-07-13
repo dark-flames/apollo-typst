@@ -14,26 +14,24 @@ inputs:
     required: false
     default: ""
 runs:
-  using: "composite"
+  using: composite
   steps:
-    - name: Checkout
-      uses: actions/checkout@v4
-      with:
-        submodules: recursive
-    - name: Build typst posts
+    - name: Setup Rust Toolchain
       uses: actions-rs/toolchain@v1
-        with:
-          toolchain: stable
+      with:
+        toolchain: stable
+    - name: Install typst-ts-cli and Build Typst Posts
       run: |
         cargo install --locked --git https://github.com/Myriad-Dreamin/typst.ts typst-ts-cli
         ./typst/build.sh
-    - name: Build frontend
+    - name: Setup Node.js Environment and Build Frontend
       uses: actions/setup-node@v4
+    - name: Build frontend
       run: |
         cd frontend
         npm install
         npm run build:prod
-    - name: Zola
+    - name: Deploy with Zola
       uses: shalzz/zola-deploy-action@v0.19.1
       env:
         PAGES_BRANCH: ${{ inputs.deploy-branch }}
