@@ -1,3 +1,10 @@
 [submodule "themes/apollo"]
 	path = themes/apollo
 	url = https://github.com/not-matthias/apollo
+
+
+
+[submodule "static/asserts/typst"]
+	path = static/asserts/typst
+	url = https://github.com/Myriad-Dreamin/typst/
+	branch = assets-book-v0.2.0
