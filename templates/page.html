@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% import "macros/typst.html" as typst %}
+
+{% block main_content %}
+    {% if page.extra.typst | default(value=false) %}
+        {{ typst::typst(page=page)}}
+    {% else %}
+        {{ post_macros::content(page=page)}}
+    {% endif %}
+    
+{% endblock main_content %}

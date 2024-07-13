@@ -1,0 +1,26 @@
+{% import "macros/macros.html" as post_macros %}
+
+<!DOCTYPE html>
+<html lang="en">
+<html class="dark light">
+
+{% include "partials/header.html" %}
+
+<body>
+    <div class="content">
+        {% include "partials/nav.html" %}
+
+        {# Post page is the default #}
+        {% block main_content %}
+            Nothing here?!
+        {% endblock main_content %}
+
+        {% if config.extra.comment | default(value=false) %}
+        <div class="giscus"></div>
+        {% include "_giscus_script.html" %}
+        {% endif %}
+
+    </div>
+</body>
+
+</html>
