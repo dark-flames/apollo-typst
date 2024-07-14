@@ -10,11 +10,6 @@
 // remove margins for web target
 #set page(
   margin: (
-    // reserved beautiful top margin
-    top: 20pt,
-    // reserved for our heading style.
-    // If you apply a different heading style, you may remove it.
-    left: 20pt,
     // Typst is setting the page's bottom to the baseline of the last line of text. So bad :(.
     bottom: 0.5em,
     // remove rest margins.
@@ -23,6 +18,7 @@
   // for a website, we don't need pagination.
   height: auto,
 );
+#set par(justify: true)
 
 
 Call me Ishmael. Some years ago --- never mind how long precisely ---
