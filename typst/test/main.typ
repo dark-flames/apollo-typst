@@ -1,16 +1,13 @@
 #import "@preview/shiroa:0.1.0": *
 #import "@preview/unequivocal-ams:0.1.0": theorem, proof
 
+// remove margins for web target
 #set page(
   numbering: none, 
   number-align: center,
   width: page-width,
-)
-
-// remove margins for web target
-#set page(
   margin: (
-    // Typst is setting the page's bottom to the baseline of the last line of text. So bad :(.
+    // Typst is setting the page's bottom to the baseline of the last line of text. So bad.
     bottom: 0.5em,
     // remove rest margins.
     rest: 0pt,
@@ -21,7 +18,7 @@
 #set par(justify: true)
 
 
-Call me Ishmael. Some years ago --- never mind how long precisely ---
+Test6 Call me Ishmael. Some years ago --- never mind how long precisely ---
 having little or no money in my purse, and nothing particular to
 interest me on shore, I thought I would sail about a little and see
 the watery part of the world. It is a way I have of driving off the

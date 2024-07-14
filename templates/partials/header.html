@@ -172,12 +172,27 @@
             window.captureStack = function() { }
         </script>
         <script>
+            function updateScale() {
+                const appElem = document.getElementById('typst-app');
+                const domElem = document.querySelector('.typst-dom-page');
+                if(domElem) {
+                    const dataWidth = domElem.getAttribute('data-width');
+                    appElem.style.setProperty('--typst-dom-scale', appElem.offsetWidth / dataWidth);
+                } else {
+                    console.log("No typst-dom-page element found, default scale 1.5");
+                    appElem.style.setProperty('--typst-dom-scale', 1.5);
+                }
+                
+            };
             window.typstBindSemantics = function () {};
-            window.typstBindSvgDom = function () {};
+            window.typstBindSvgDom = function () {
+                updateScale();
+            };
             window.captureStack = function () {
                 return undefined;
             };
-            
+               
+
             document.addEventListener("DOMContentLoaded", () => {
                 let plugin = window.TypstRenderModule.createTypstRenderer();
                 plugin
@@ -193,10 +208,11 @@
                     .then(buffer => new Uint8Array(buffer));
 
                     const appElem = document.getElementById('typst-app');
+                    appElem.style.setProperty('--typst-dom-scale', 1.5);
                     let renderStart = undefined;
                     const canvasRender = async ses => {
                         await plugin.renderToCanvas({
-                            // renderSession: ses,
+                            renderSession: ses,
                             artifactContent: artifactData,
                             container: appElem,
                             backgroundColor: '#343541',
@@ -205,17 +221,22 @@
                         });
                     };
                     const domRender = async ses => {
-                    const dom = await plugin.renderDom({
-                        renderSession: ses,
-                        container: appElem,
-                        pixelPerPt: 4.5,
-                        domScale: 1.5,
-                    });
+                        const dom = await plugin.renderDom({
+                            renderSession: ses,
+                            container: appElem,
+                            pixelPerPt: 4.5,
+                            domScale: 1.5,
+                        });
 
-                    dom.addChangement(['new', artifactData]);
+                        dom.addChangement(['new', artifactData]);
 
-                    window.addEventListener('resize', () => dom.addViewportChange());
-                    window.addEventListener('scroll', () => dom.addViewportChange());
+                        
+                        window.addEventListener('resize', () => {
+                            updateScale();
+                            dom.addViewportChange()
+                        });
+                        window.addEventListener('scroll', () => dom.addViewportChange());
+                        
                     };
 
                     plugin.runWithSession(
@@ -223,8 +244,9 @@
                         new Promise(async dispose => {
                         renderStart = performance.now();
                         await domRender(ses);
-
+                        
                         void dispose;
+                        }).then(() => {
                         }),
                     );
                 });

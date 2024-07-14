@@ -8,49 +8,6 @@
   margin: 5px;
 }
 
-
-@media screen and (max-width: 360px) {
-  #typst-app {
-    --typst-dom-scale: 0.72;
-  }
-}
-
-@media screen and (min-width: 360px) and (max-width: 400px) {
-  #typst-app {
-    --typst-dom-scale: 0.85;
-  }
-}
-
-@media screen and (min-width: 400px) and (max-width: 481px) {
-  #typst-app {
-    --typst-dom-scale: 0.95;
-  }
-}
-
-@media screen and (min-width: 481px) and (max-width: 540px) {
-  #typst-app {
-    --typst-dom-scale: 1.1;
-  }
-}
-
-@media screen and (min-width: 540px) and (max-width: 768px) {
-  #typst-app {
-    --typst-dom-scale: 1.3;
-  }
-}
-
-@media screen and (min-width: 768px) and (max-width: 1344px) {
-  #typst-app {
-    --typst-dom-scale: 1.5;
-  }
-}
-
-@media screen and (min-width: 1344px) {
-  #typst-app {
-    --typst-dom-scale: 1.7;
-  }
-}
-
 .typst-dom-page {
   width: calc(var(--data-page-width, 100%) * var(--typst-dom-scale));
   height: calc(var(--data-page-height) * var(--typst-dom-scale));

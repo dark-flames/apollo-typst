@@ -6,6 +6,7 @@
   "scripts": {
     "build:dev": "npm run clean && webpack --mode development",
     "build:prod": "npm run clean && webpack --mode production",
+    "dev": "npm run clean && webpack --mode development --watch",
     "clean": "rimraf ../static/js/* ../static/css/* ../static/wasm/*"
   },
   "keywords": [],
