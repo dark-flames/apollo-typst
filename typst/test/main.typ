@@ -1,24 +1,29 @@
 #import "@preview/shiroa:0.1.0": *
+#import "@preview/typst-apollo:0.1.0": pages
+#import pages: *
+
 #import "@preview/unequivocal-ams:0.1.0": theorem, proof
 
-// remove margins for web target
-#set page(
-  numbering: none, 
-  number-align: center,
-  width: page-width,
-  margin: (
-    // Typst is setting the page's bottom to the baseline of the last line of text. So bad.
-    bottom: 0.5em,
-    // remove rest margins.
-    rest: 0pt,
-  ),
-  // for a website, we don't need pagination.
-  height: auto,
-);
+
+#show: project.with(
+  title: "Test",
+  authors: (
+    (
+      name: "Darkflames",
+      email: "darkf1ames@pm.me"
+    ),(
+      name: "Darkflames",
+      email: "darkf1ames@pm.me"
+    ),
+  )
+)
+
 #set par(justify: true)
+#set heading(numbering: "1.")
 
 
-Test6 Call me Ishmael. Some years ago --- never mind how long precisely ---
+= Beginning <beg>
+Call me Ishmael. Some years ago --- never mind how long precisely ---
 having little or no money in my purse, and nothing particular to
 interest me on shore, I thought I would sail about a little and see
 the watery part of the world. It is a way I have of driving off the
@@ -35,6 +40,8 @@ Cato throws himself upon his sword; I quietly take to the ship. There
 is nothing surprising in this. If they but knew it, almost all men in
 their degree, some time or other, cherish very nearly the same
 feelings towards the ocean with me. @netwok2020
+
+#cross-link("/posts/markdown/")[cross reference to the markdown]
 
 There now is your insular city of the Manhattoes, belted round by
 wharves as Indian isles by coral reefs - commerce surrounds it with
@@ -91,8 +98,9 @@ $ integral_(-oo)^oo e^(-x^2) dif x = sqrt(pi) $
 ]
 
 = Introduction
-This is a new section.
+This is a new section. @beg
 You can use tables like @solids.
+
 
 #figure(
   table(

@@ -19,29 +19,41 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ********************************************************************************/
+ 
+#import "@preview/shiroa:0.1.0": *
+#import "./pages.typ": project, part-style
 
-import { TypstSvgRenderer } from '@myriaddreamin/typst.ts/dist/esm/renderer';
+#let _page-project = project
 
-declare global {
-  interface Window {
-    layoutText: any;
-    typstPathToRoot: string | undefined;
-    typstGetRelatedElements: any;
-    handleTypstLocation: any;
-    getTypstTheme(): string;
-    captureStack(): any;
-    typstRerender?: (responsive?: boolean) => void;
-    typstCheckAndRerender?: (responsive: boolean, stack?: any) => Promise<void>;
-    typstChangeTheme?: () => Promise<void>;
-    debounce<T extends { (...args: any[]): void }>(fn: T, delay = 200): T;
-    assignSemaHash: (u: number, x: number, y: number) => void;
-    typstProcessSvg: any;
-    typstBookRenderPage(
-      plugin: TypstSvgRenderer,
-      relPath: string,
-      appContainer: HTMLDivElement | undefined,
-    ): void;
-    typstBindSvgDom(elem: HTMLDivElement, dom: SVGSVGElement): void;
-    TypstRenderModule: any;
+#let _resolve-inclusion-state = state("_resolve-inclusion", none)
+
+#let resolve-inclusion(inc) = _resolve-inclusion-state.update(it => inc)
+
+#let project(title: "", authors: (), spec: "", content) = {
+  // Set document metadata early
+  set document(
+    author: authors,
+    title: title,
+  )
+
+  // Inherit from gh-pages
+  show: _page-project
+
+  if title != "" {
+    heading(title)
   }
+
+  locate(loc => {
+    let inc = _resolve-inclusion-state.final(loc)
+    external-book(spec: inc(spec))
+
+    let mt = book-meta-state.final(loc)
+    let styles = (inc: inc, part: part-style, chapter: it => it)
+
+    if mt != none {
+      mt.summary.map(it => visit-summary(it, styles)).sum()
+    }
+  })
+
+  content
 }

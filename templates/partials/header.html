@@ -179,12 +179,11 @@
                     const dataWidth = domElem.getAttribute('data-width');
                     appElem.style.setProperty('--typst-dom-scale', appElem.offsetWidth / dataWidth);
                 } else {
-                    console.log("No typst-dom-page element found, default scale 1.5");
+                    console.log("No typst-dom-page element found, default scale = 1.5");
                     appElem.style.setProperty('--typst-dom-scale', 1.5);
                 }
                 
             };
-            window.typstBindSemantics = function () {};
             window.typstBindSvgDom = function () {
                 updateScale();
             };
@@ -202,7 +201,7 @@
                 })
                 .then(async () => {
                     const artifactData = await fetch(
-                        '{{ get_url(path="typst/" ~ page.extra.typst~ "/main.multi.sir.in") }}',
+                        '{{ get_url(path="typst/" ~ page.extra.typst~ "/light/main.multi.sir.in") }}',
                     )
                     .then(response => response.arrayBuffer())
                     .then(buffer => new Uint8Array(buffer));
@@ -210,17 +209,10 @@
                     const appElem = document.getElementById('typst-app');
                     appElem.style.setProperty('--typst-dom-scale', 1.5);
                     let renderStart = undefined;
-                    const canvasRender = async ses => {
-                        await plugin.renderToCanvas({
-                            renderSession: ses,
-                            artifactContent: artifactData,
-                            container: appElem,
-                            backgroundColor: '#343541',
-                            // backgroundColor: '#ffffff',
-                            pixelPerPt: 4.5,
-                        });
-                    };
+
                     const domRender = async ses => {
+                        console.log("Session width: " + ses.docWidth);
+                        console.log("Session height: " + ses.docHeight);
                         const dom = await plugin.renderDom({
                             renderSession: ses,
                             container: appElem,
@@ -242,10 +234,10 @@
                     plugin.runWithSession(
                     ses =>
                         new Promise(async dispose => {
-                        renderStart = performance.now();
-                        await domRender(ses);
-                        
-                        void dispose;
+                            renderStart = performance.now();
+                            await domRender(ses);
+
+                            void dispose;
                         }).then(() => {
                         }),
                     );

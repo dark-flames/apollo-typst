@@ -63,8 +63,10 @@
         {% endif %}
 
         <section class="body">
-            <div id="typst-app"></div>
+            <div id="typst-app" class="typst-app"></div>
         </section>
+
+        <script src={{ get_url(path="svg_utils.js") }}></script>
     </article>
 </main>
 {% endmacro typst %}

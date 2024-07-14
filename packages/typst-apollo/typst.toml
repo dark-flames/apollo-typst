@@ -1,0 +1,8 @@
+
+[package]
+name = "typst-apollo"
+version = "0.1.0"
+entrypoint = "lib.typ"
+authors = ["dark-flames"]
+license = "MIT"
+description = "default page configuration for typst-apollo"
