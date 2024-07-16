@@ -26,6 +26,19 @@ class Compiler {
     const dyn = target => {
       const c = DynLayoutCompiler.fromBoxed(NodeCompiler.create(compileArgs).intoBoxed());
       c.setTarget(target);
+      // By default we have 40 breakpoints
+      // we shrink it a bit
+      // lg: 660pt (990px ~ 1000px)
+      // lg-50pt
+      // lg-100pt
+      // lg-150pt
+      // 450pt
+      // md: 510pt (765px ~ 768px)
+      // sm: 382pt (573px ~ 576px)
+      // 300pt
+      // 250pt
+      // 200pt
+      c.setLayoutWidths([660, 610, 560, 510, 450, 382, 300, 250, 200]);
       return c;
     };
     this.dyn = {
