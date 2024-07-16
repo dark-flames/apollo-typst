@@ -6,13 +6,13 @@
  * Myriad-Dreamin  (https://github.com/Myriad-Dreamin)
  *
  * Copyright (c) 2023 shiroa Developers
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *     http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -29,9 +29,6 @@
 #let is-pdf-target = is-pdf-target()
 #let is-web-target = is-web-target()
 
-
-
-
 #let make-unique-label(it, disambiguator: 1) = label({
   let k = plain-text(it).trim()
   if disambiguator > 1 {
@@ -46,14 +43,14 @@
 // The project function defines how your document looks.
 // It takes your content and some metadata and formats it.
 // Go ahead and customize it to your liking!
-#let project(title: "Typst Book", authors: (), show-title: false, body) = {
+#let project(title: "Typst Book", authors: (), show-title: false, show-authors: false, body) = {
 
   // set basic document metadata
   set document(author: authors.map(a => a.name), title: title) if not is-pdf-target
 
   // set web/pdf page properties
   set page(
-    numbering: none, 
+    numbering: none,
     number-align: center,
     width: page-width,
   )
@@ -73,41 +70,49 @@
     ),
     // for a website, we don't need pagination.
     height: auto,
-  ) if is-web-target;
+  ) if is-web-target
 
-  // set text style
+  // set text and line style
   set text(font: main-font, size: 16pt, fill: main-color, lang: "en")
+  set line(stroke: main-color)
+  set table(stroke: main-color)
 
   let ld = state("label-disambiguator", (:))
   let update-ld(k) = ld.update(it => {
-    it.insert(k, it.at(k, default: 0) + 1);
+    it.insert(k, it.at(k, default: 0) + 1)
     it
   })
   let get-ld(loc, k) = make-unique-label(k, disambiguator: ld.at(loc).at(k))
 
   // render a dash to hint headings instead of bolding it.
-  show heading : set text(weight: "regular") if is-web-target
-  show heading : it => {
+  show heading: set text(weight: "regular") if is-web-target
+  show heading: it => {
     block({
       if is-web-target {
-        let title = plain-text(it.body).trim();
+        let title = plain-text(it.body).trim()
         update-ld(title)
-        context ({
-          let loc = here();
-          let dest = get-ld(loc, title);
-          let h = measure(it.body).height;
-          place(left, dx: - 20pt, [
-            #set text(fill: dash-color)
-            #link(loc)[\#] #dest
-          ])
-        });
+        context (
+          {
+            let loc = here()
+            let dest = get-ld(loc, title)
+            let h = measure(it.body).height
+            place(
+              left,
+              dx: -20pt,
+              [
+                #set text(fill: dash-color)
+                #link(loc)[\#] #dest
+              ],
+            )
+          }
+        )
       }
       it
     })
   }
 
   // link setting
-  show link : set text(fill: dash-color)
+  show link: set text(fill: dash-color)
 
   // math setting
   show math.equation: set text(weight: 400)
@@ -137,7 +142,7 @@
     align(center)[ #block(text(weight: 700, 1.75em, title)) ]
   }
 
-  if authors.len() > 0 {
+  if show-authors and authors.len() > 0 {
     // Author information.
     pad(
       top: 0.5em,

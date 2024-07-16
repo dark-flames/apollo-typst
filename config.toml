@@ -9,10 +9,7 @@ build_search_index = true
 
 theme = "apollo"
 
-taxonomies = [
-    { name = "tags", feed = true }
-]
-
+taxonomies = [{ name = "tags", feed = true }]
 
 
 [markdown]
@@ -22,9 +19,9 @@ highlight_code = true
 
 [extra]
 menu = [
-    { name = "/posts", url = "/posts", weight = 1 },
-    { name = "/tags", url = "/tags", weight = 2 },
-    { name = "/about", url = "/about", weight = 3 },
+  { name = "/posts", url = "/posts", weight = 1 },
+  { name = "/tags", url = "/tags", weight = 2 },
+  { name = "/about", url = "/about", weight = 3 },
 ]
 
 socials = [

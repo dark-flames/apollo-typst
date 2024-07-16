@@ -1,33 +1,33 @@
 #import "@preview/shiroa:0.1.0": *
 #import "@preview/typst-apollo:0.1.0": pages
 #import pages: *
+#import "@preview/shiroa:0.1.0": get-page-width, target, is-web-target, is-pdf-target, plain-text
 
 #import "@preview/unequivocal-ams:0.1.0": theorem, proof
-
 
 #show: project.with(
   title: "Test",
   authors: (
     (
       name: "Darkflames",
-      email: "darkf1ames@pm.me"
-    ),(
-      name: "Darkflames",
-      email: "darkf1ames@pm.me"
+      email: "darkf1ames@pm.me",
     ),
-  )
+    (
+      name: "Darkflames",
+      email: "darkf1ames@pm.me",
+    ),
+  ),
 )
 
 #set par(justify: true)
 #set heading(numbering: "1.")
-
 
 = Beginning <beg>
 Call me Ishmael. Some years ago --- never mind how long precisely ---
 having little or no money in my purse, and nothing particular to
 interest me on shore, I thought I would sail about a little and see
 the watery part of the world. It is a way I have of driving off the
-spleen, and regulating the circulation.  Whenever I find myself
+spleen, and regulating the circulation. Whenever I find myself
 growing grim about the mouth; whenever it is a damp, drizzly November
 in my soul; whenever I find myself involuntarily pausing before coffin
 warehouses, and bringing up the rear of every funeral I meet; and
@@ -54,7 +54,7 @@ Call me Ishmael. Some years ago --- never mind how long precisely ---
 having little or no money in my purse, and nothing particular to
 interest me on shore, I thought I would sail about a little and see
 the watery part of the world. It is a way I have of driving off the
-spleen, and regulating the circulation.  Whenever I find myself
+spleen, and regulating the circulation. Whenever I find myself
 growing grim about the mouth; whenever it is a damp, drizzly November
 in my soul; whenever I find myself involuntarily pausing before coffin
 warehouses, and bringing up the rear of every funeral I meet; and
@@ -81,7 +81,7 @@ The binomial theorem is
 $ (x+y)^n=sum_(k=0)^n binom(n, k) x^k y^(n-k). $
 
 A favorite sum of most mathematicians is
-$ sum_(n=1)^oo 1/n^2 = pi^2 / 6. $
+$ sum_(n=1)^oo 1 / n^2 = pi^2 / 6. $
 
 Likewise a popular integral is
 $ integral_(-oo)^oo e^(-x^2) dif x = sqrt(pi) $
@@ -111,11 +111,10 @@ You can use tables like @solids.
     [*Cylinder*],
     $ pi h (D^2 - d^2) / 4 $,
     [$h$: height \
-     $D$: outer radius \
-     $d$: inner radius],
-    [*Tetrahedron*],
-    $ sqrt(2) / 12 a^3 $,
-    [$a$: edge length]
+      $D$: outer radius \
+      $d$: inner radius],
+
+    [*Tetrahedron*], $ sqrt(2) / 12 a^3 $, [$a$: edge length],
   ),
   caption: "Solids",
 ) <solids>

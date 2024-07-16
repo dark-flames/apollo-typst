@@ -1,0 +1,26 @@
+{
+  "name": "blog",
+  "version": "0.0.0",
+  "private": true,
+  "contributors": [
+    "Myriad Dreamin <camiyoru@gmail.com>",
+    "Dark Flames"
+  ],
+  "workspaces": [
+    "frontend"
+  ],
+  "scripts": {
+    "install:bin": "node scripts/install-bin.js",
+    "reset": "rm -rf static/typst && cd frontend && npm run reset",
+    "fe": "cd frontend && npm install && npm run build:prod",
+    "typst": "cd typst && ./build.sh",
+    "build:frontend": "yarn workspace blog-frontend build:prod",
+    "build:typ": "node scripts/build-posts.js",
+    "build": "zola build",
+    "serve": "zola serve"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@myriaddreamin/typst-ts-node-compiler": "^0.5.0-rc6"
+  }
+}

@@ -6,13 +6,13 @@
  * Myriad-Dreamin  (https://github.com/Myriad-Dreamin)
  *
  * Copyright (c) 2023 shiroa Developers
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *     http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -33,7 +33,7 @@ declare global {
     typstRerender?: (responsive?: boolean) => void;
     typstCheckAndRerender?: (responsive: boolean, stack?: any) => Promise<void>;
     typstChangeTheme?: () => Promise<void>;
-    debounce<T extends { (...args: any[]): void }>(fn: T, delay = 200): T;
+    debounce<T extends { (...args: any[]): void }>(fn: T, delay?: number): T;
     assignSemaHash: (u: number, x: number, y: number) => void;
     typstProcessSvg: any;
     typstBookRenderPage(

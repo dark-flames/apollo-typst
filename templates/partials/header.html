@@ -138,8 +138,8 @@
     {% endif %}
 
     {% if page.extra.typst | default(value=false) %}
-        <script type="module" src={{ get_url(path="js/main.bundle.js") }}></script>
-        <link rel="stylesheet" href={{ get_url(path="css/main.bundle.css") }}>
+        <script type="module" src={{ get_url(path="apollo-typst/apollo.typst.mjs") }}></script>
+        <link rel="stylesheet" href={{ get_url(path="apollo-typst/style.css") }}>
         <script>
             /// https://segmentfault.com/a/1190000016574288
             (function () {
@@ -170,6 +170,7 @@
             })();
 
             window.captureStack = function() { }
+            window.getTypstTheme = function() { return getSavedTheme(); };
         </script>
         <script>
             function updateScale() {
@@ -191,56 +192,19 @@
                 return undefined;
             };
                
-
             document.addEventListener("DOMContentLoaded", () => {
+                // todo: less copy, we can reuse the code among the hexo/shiroa/apollo?
+                const appElem = document.getElementById('typst-app');
+                appElem.style.setProperty('--typst-dom-scale', 1.5);
+
                 let plugin = window.TypstRenderModule.createTypstRenderer();
                 plugin
                 .init({
                     getModule: () =>
                         '{{ get_url(path="wasm/typst_ts_renderer_bg.wasm") }}',
                 })
-                .then(async () => {
-                    const artifactData = await fetch(
-                        '{{ get_url(path="typst/" ~ page.extra.typst~ "/light/main.multi.sir.in") }}',
-                    )
-                    .then(response => response.arrayBuffer())
-                    .then(buffer => new Uint8Array(buffer));
-
-                    const appElem = document.getElementById('typst-app');
-                    appElem.style.setProperty('--typst-dom-scale', 1.5);
-                    let renderStart = undefined;
-
-                    const domRender = async ses => {
-                        console.log("Session width: " + ses.docWidth);
-                        console.log("Session height: " + ses.docHeight);
-                        const dom = await plugin.renderDom({
-                            renderSession: ses,
-                            container: appElem,
-                            pixelPerPt: 4.5,
-                            domScale: 1.5,
-                        });
-
-                        dom.addChangement(['new', artifactData]);
-
-                        
-                        window.addEventListener('resize', () => {
-                            updateScale();
-                            dom.addViewportChange()
-                        });
-                        window.addEventListener('scroll', () => dom.addViewportChange());
-                        
-                    };
-
-                    plugin.runWithSession(
-                    ses =>
-                        new Promise(async dispose => {
-                            renderStart = performance.now();
-                            await domRender(ses);
-
-                            void dispose;
-                        }).then(() => {
-                        }),
-                    );
+                .then(() => {
+                    window.typstBookRenderPage(plugin, '{{ get_url(path="typst/" ~ page.extra.typst) }}', appElem);
                 });
             });
           </script>

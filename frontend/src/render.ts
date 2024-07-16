@@ -6,13 +6,13 @@
  * Myriad-Dreamin  (https://github.com/Myriad-Dreamin)
  *
  * Copyright (c) 2023 shiroa Developers
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *     http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -187,7 +187,7 @@ const findAncestor = (el: Element, cls: string) => {
 window.typstBookRenderPage = function (
   plugin: TypstRenderer,
   relPath: string,
-  appContainer: HTMLDivElement | undefined,
+  appElem: HTMLDivElement,
 ) {
   // todo: preload artifact
   const getTheme = () => window.getTypstTheme();
@@ -195,12 +195,6 @@ window.typstBookRenderPage = function (
   let session: RenderSession | undefined = undefined;
   let dom: TypstDomDocument = undefined!;
   let disposeSession: () => void = () => {};
-
-  const appElem = document.createElement('div');
-  if (appElem && appContainer) {
-    appElem.className = 'typst-app';
-    appContainer.appendChild(appElem);
-  }
 
   const dec = new TextDecoder();
   window.typstBindSvgDom = async (_elem: HTMLDivElement, _dom: SVGSVGElement) => {};
@@ -352,6 +346,7 @@ window.typstBookRenderPage = function (
             renderSession: sessionRef,
             container: appElem,
             pixelPerPt: 4.5,
+            domScale: 1.5,
           });
           const mod = dom.impl.modes.find(([k, _]) => k == 'dom')!;
           const postRender = mod[1].postRender;

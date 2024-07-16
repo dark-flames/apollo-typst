@@ -1,13 +1,13 @@
 {
-  "name": "dark-flames.github.io",
+  "name": "blog-frontend",
   "version": "1.0.0",
   "description": "",
   "main": "src/index.ts",
   "scripts": {
-    "build:dev": "npm run clean && webpack --mode development",
-    "build:prod": "npm run clean && webpack --mode production",
-    "dev": "npm run clean && webpack --mode development --watch",
-    "clean": "rimraf ../static/js/* ../static/css/* ../static/wasm/*"
+    "build:dev": "npm run reset && vite build",
+    "build:prod": "npm run reset && vite build",
+    "dev": "npm run reset && vite dev",
+    "reset": "rimraf ../static/js ../static/css ../static/wasm"
   },
   "keywords": [],
   "author": "",
@@ -22,12 +22,12 @@
     "style-loader": "^4.0.0",
     "ts-loader": "^9.5.1",
     "typescript": "^5.5.3",
-    "webpack": "^5.93.0",
-    "webpack-cli": "^5.1.4"
+    "vite": "^5.0.8",
+    "vite-plugin-singlefile": "^0.13.5",
+    "vite-plugin-static-copy": "^1.0.6"
   },
   "dependencies": {
-    "@myriaddreamin/typst-ts-renderer": "^0.5.0-rc5",
-    "@myriaddreamin/typst-ts-web-compiler": "^0.5.0-rc5",
-    "@myriaddreamin/typst.ts": "^0.5.0-rc5"
+    "@myriaddreamin/typst-ts-renderer": "^0.5.0-rc6",
+    "@myriaddreamin/typst.ts": "^0.5.0-rc6"
   }
 }
