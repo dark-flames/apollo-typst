@@ -41,17 +41,14 @@ yarn serve
 
 ### Deployment[WIP]
 
-To deploy your site to GitHub Pages, you can use the provided GitHub Action:
+To deploy your site to GitHub Pages, you can use the provided GitHub Action in branch `action-v1`:
 
-`.github/workflows/deploy.yml`:
+Example .github/workflows/deployl.yaml
 
 ```yaml
 name: Deploy
 
-on:
-  push:
-    branches:
-      - main
+on: workflow_dispatch
 
 jobs:
   deploy:
@@ -59,11 +56,10 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v4
+      - name: deploy
+        uses: dark-flames/apollo-typst@action-v1
         with:
-          submodules: recursive
-      - uses: ../.github/actions/deploy-action@main
-        with:
-        access-token: ${{ secrets.ACCESS_TOKEN }}
-        deploy-branch: static
-    # deploy-repo: another/repo
+          access-token: ${{ secrets.ACCESS_TOKEN }}
+          deploy-branch: static
+        # deploy-repo: ${{ another/repo }}
 ```

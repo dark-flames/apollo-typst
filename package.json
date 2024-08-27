@@ -1,6 +1,7 @@
 {
   "name": "apollo-typst",
   "version": "0.1.0",
+  "private": true,
   "contributors": [
     "Myriad Dreamin <camiyoru@gmail.com>",
     "dark-flames <github@dark-flames.dev>"
