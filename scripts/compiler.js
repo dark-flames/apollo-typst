@@ -32,7 +32,7 @@ class Compiler {
       // lg-50pt
       // lg-100pt
       // lg-150pt
-      // 450pt
+      // 450pt  
       // md: 510pt (765px ~ 768px)
       // sm: 382pt (573px ~ 576px)
       // 300pt

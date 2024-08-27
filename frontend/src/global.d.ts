@@ -43,5 +43,6 @@ declare global {
     ): void;
     typstBindSvgDom(elem: HTMLDivElement, dom: SVGSVGElement): void;
     TypstRenderModule: any;
+    updateScale: () => void;
   }
 }

@@ -173,20 +173,22 @@
             window.getTypstTheme = function() { return getSavedTheme(); };
         </script>
         <script>
-            function updateScale() {
+            window.updateScale = function () {
                 const appElem = document.getElementById('typst-app');
-                const domElem = document.querySelector('.typst-dom-page');
-                if(domElem) {
-                    const dataWidth = domElem.getAttribute('data-width');
-                    appElem.style.setProperty('--typst-dom-scale', appElem.offsetWidth / dataWidth);
-                } else {
-                    console.log("No typst-dom-page element found, default scale = 1.5");
-                    appElem.style.setProperty('--typst-dom-scale', 1.5);
+                // calculate proper dom-scale by appElem's width for comfortable font size.
+                // data-width will always be 660 when appElem's width greater than 660.
+                const getScale = () => {
+                    const appWidth = appElem.offsetWidth;
+                    
+                    return Math.max(1.5 * (appWidth / 1000), 1);
                 }
-                
-            };
+
+                appElem.style.setProperty('--typst-dom-scale', getScale());
+            }
+
             window.typstBindSvgDom = function () {
-                updateScale();
+                window.updateScale();
+                return undefined;
             };
             window.captureStack = function () {
                 return undefined;
@@ -195,7 +197,7 @@
             document.addEventListener("DOMContentLoaded", () => {
                 // todo: less copy, we can reuse the code among the hexo/shiroa/apollo?
                 const appElem = document.getElementById('typst-app');
-                appElem.style.setProperty('--typst-dom-scale', 1.5);
+                window.updateScale();
 
                 let plugin = window.TypstRenderModule.createTypstRenderer();
                 plugin

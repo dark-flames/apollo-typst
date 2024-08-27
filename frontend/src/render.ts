@@ -332,6 +332,7 @@ window.typstBookRenderPage = function (
       .then(buffer => new Uint8Array(buffer));
 
     const t1 = performance.now();
+
     return new Promise(resolve => {
       return plugin.runWithSession(sessionRef => {
         return new Promise(async doDisposeSession => {
@@ -345,8 +346,7 @@ window.typstBookRenderPage = function (
           dom = await plugin.renderDom({
             renderSession: sessionRef,
             container: appElem,
-            pixelPerPt: 4.5,
-            domScale: 1.5,
+            pixelPerPt: 4.5
           });
           const mod = dom.impl.modes.find(([k, _]) => k == 'dom')!;
           const postRender = mod[1].postRender;
@@ -387,10 +387,14 @@ window.typstBookRenderPage = function (
     };
 
     const viewportHandler = () => dom.addViewportChange();
-    window.addEventListener('resize', viewportHandler);
+    const resizeHandler = () => {
+      window.updateScale();
+      viewportHandler();
+    };
+    window.addEventListener('resize', resizeHandler);
     window.addEventListener('scroll', viewportHandler);
     dom.impl.disposeList.push(() => {
-      window.removeEventListener('resize', viewportHandler);
+      window.removeEventListener('resize', resizeHandler);
       window.removeEventListener('scroll', viewportHandler);
     });
     window.typstRerender = viewportHandler;
