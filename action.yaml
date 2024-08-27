@@ -24,6 +24,9 @@ runs:
       shell: bash
       run: |
         cargo install --locked --git https://github.com/Myriad-Dreamin/typst.ts typst-ts-cli
+    - uses: Swatinem/rust-cache@v2
+      with:
+        prefix-key: 'v0.5.0-rc7'
     - name: Setup Node.js Environment and Build Frontend
       uses: actions/setup-node@v4
       with:
