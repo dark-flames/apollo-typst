@@ -21,6 +21,7 @@ runs:
       with:
         toolchain: stable
     - name: Install typst-ts-cli and Build Typst Posts
+      shell: bash
       run: |
         cargo install --locked --git https://github.com/Myriad-Dreamin/typst.ts typst-ts-cli
     - name: Setup Node.js Environment and Build Frontend
@@ -29,6 +30,7 @@ runs:
         node-version: 22
         cache: 'yarn'
     - name: Build frontend
+      shell: bash
       run: |
         yarn install
         yarn build:typ
