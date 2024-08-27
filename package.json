@@ -1,10 +1,9 @@
 {
-  "name": "blog",
-  "version": "0.0.0",
-  "private": true,
+  "name": "apollo-typst",
+  "version": "0.1.0",
   "contributors": [
     "Myriad Dreamin <camiyoru@gmail.com>",
-    "Dark Flames"
+    "dark-flames <github@dark-flames.dev>"
   ],
   "workspaces": [
     "frontend"
@@ -16,7 +15,6 @@
     "typst": "cd typst && ./build.sh",
     "build:frontend": "yarn workspace blog-frontend build:prod",
     "build:typ": "node scripts/build-posts.js",
-    "build": "zola build",
     "serve": "zola serve"
   },
   "dependencies": {},

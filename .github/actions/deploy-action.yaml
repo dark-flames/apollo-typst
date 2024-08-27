@@ -16,6 +16,8 @@ inputs:
 runs:
   using: composite
   steps:
+    - name: Checkout
+      uses: actions/checkout@v4
     - name: Setup Rust Toolchain
       uses: actions-rs/toolchain@v1
       with:
@@ -23,14 +25,15 @@ runs:
     - name: Install typst-ts-cli and Build Typst Posts
       run: |
         cargo install --locked --git https://github.com/Myriad-Dreamin/typst.ts typst-ts-cli
-        ./typst/build.sh
     - name: Setup Node.js Environment and Build Frontend
       uses: actions/setup-node@v4
+      with:
+        cache: 'yarn'
     - name: Build frontend
       run: |
-        cd frontend
-        npm install
-        npm run build:prod
+        yarn install
+        yarn build:typ
+        yarn build:frontend
     - name: Deploy with Zola
       uses: shalzz/zola-deploy-action@v0.19.1
       env:
