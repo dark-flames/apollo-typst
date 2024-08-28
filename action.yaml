@@ -17,7 +17,7 @@ runs:
   using: composite
   steps:
     - name: Install typst-ts-cli
-      use: taiki-e/cache-cargo-install-action@v2
+      uses: taiki-e/cache-cargo-install-action@v2
       with:
         tool: typst-ts-cli
         git: https://github.com/Myriad-Dreamin/typst.ts
