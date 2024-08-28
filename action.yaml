@@ -16,28 +16,26 @@ inputs:
 runs:
   using: composite
   steps:
-    - name: Setup Rust Toolchain
-      uses: actions-rs/toolchain@v1
+    - name: Install typst-ts-cli
+      use: taiki-e/cache-cargo-install-action@v2
       with:
-        toolchain: stable
-    - name: Install typst-ts-cli and Build Typst Posts
-      shell: bash
-      run: |
-        cargo install --locked --git https://github.com/Myriad-Dreamin/typst.ts typst-ts-cli
-    - uses: Swatinem/rust-cache@v2
-      with:
-        prefix-key: 'v0.5.0-rc7'
+        tool: typst-ts-cli
+        git: https://github.com/Myriad-Dreamin/typst.ts
+        tag: v0.5.0-rc7
+        locked: true
+
     - name: Setup Node.js Environment and Build Frontend
       uses: actions/setup-node@v4
       with:
         node-version: 22
         cache: 'yarn'
+    
     - name: Build frontend
       shell: bash
       run: |
         yarn install
+        yarn build:fe
         yarn build:typ
-        yarn build:frontend
     - name: Deploy with Zola  
       uses: shalzz/zola-deploy-action@v0.19.1
       env:

@@ -1,2 +1,6 @@
 .idea
 .vscode
+frontend/
+typ/
+node_modules/
+static/
