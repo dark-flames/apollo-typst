@@ -1,5 +1,6 @@
 const { NodeCompiler, DynLayoutCompiler } = require('@myriaddreamin/typst-ts-node-compiler');
 const { resolve } = require('path');
+const breakpoints = require('../frontend/breakpoints.json');
 
 class Compiler {
   constructor({ baseDir }) {
@@ -38,7 +39,7 @@ class Compiler {
       // 300pt
       // 250pt
       // 200pt
-      c.setLayoutWidths([660, 610, 560, 510, 450, 382, 300, 250, 200]);
+      c.setLayoutWidths(breakpoints.reverse());
       return c;
     };
     this.dyn = {

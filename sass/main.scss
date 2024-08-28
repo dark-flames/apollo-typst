@@ -1,0 +1,60 @@
+@import "../themes/apollo/sass/parts/_cards.scss";
+@import "../themes/apollo/sass/parts/_code.scss";
+@import "../themes/apollo/sass/parts/_header.scss";
+@import "../themes/apollo/sass/parts/_image.scss";
+@import "../themes/apollo/sass/parts/_toc.scss";
+@import "../themes/apollo/sass/parts/_note.scss";
+@import "../themes/apollo/sass/parts/misc.scss";
+@import "../themes/apollo/sass/parts/table.scss";
+@import "../themes/apollo/sass/parts/tags.scss";
+
+:root {
+  /* Used for: block comment, hr, ... */
+  --border-color: var(--border-color);
+
+  /* Fonts */
+  --text-font: 'Jetbrains Mono';
+  --header-font: 'Space Grotesk', 'Helvetica', sans-serif;
+  --code-font: 'Jetbrains Mono';
+}
+
+html {
+  background-color: var(--bg-0);
+  color: var(--text-0);
+  font-family: var(--text-font);
+  line-height: 1.6em;
+}
+
+.content {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 12px;
+  word-wrap: break-word;
+}
+
+@media all and (min-width:600px) {
+  html {
+    font-size: 16.5px;
+  }
+  .content {
+    padding: 0 18px;
+  }
+}
+
+@media all and (min-width:768px) {
+  html {
+    font-size: 17px;
+  }
+  .content {
+    padding: 0 24px;
+  }
+}
+
+@media all and (min-width:960px) {
+  html {
+    font-size: 18px;
+  }
+  .content {
+    padding: 0 24px;
+  }
+}

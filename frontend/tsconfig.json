@@ -18,6 +18,11 @@
       "declarationMap": true,
       "inlineSources": true,
       "inlineSourceMap": true,
-      "composite": true
-    }
+      "composite": true,
+    },
+    "include": [
+        "src/**/*.ts",
+        "breakpoints.json"
+    ],
+    
   }

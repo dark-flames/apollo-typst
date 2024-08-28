@@ -175,15 +175,9 @@
         <script>
             window.updateScale = function () {
                 const appElem = document.getElementById('typst-app');
-                // calculate proper dom-scale by appElem's width for comfortable font size.
-                // data-width will always be 660 when appElem's width greater than 660.
-                const getScale = () => {
-                    const appWidth = appElem.offsetWidth;
-                    
-                    return Math.max(1.5 * (appWidth / 1000), 1);
-                }
+                const appWidth = appElem.offsetWidth;
 
-                appElem.style.setProperty('--typst-dom-scale', getScale());
+                appElem.style.setProperty('--typst-dom-scale', window.calcScale(appWidth));
             }
 
             window.typstBindSvgDom = function () {
