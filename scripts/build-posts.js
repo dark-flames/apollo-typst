@@ -23,7 +23,7 @@ function compileWorkspace(compiler, typstRoot, path, artifactRoot, depth) {
     printWithDepth(depth + 1, 'Theme:', theme);
     fs.mkdirSync(resolve(artifactRoot, path, theme), { recursive: true });
 
-    const vec = compiler.vector(resolve(typstRoot, path, 'main.typ'), theme);
+    const vec = compiler.vector(join(typstRoot, path, 'main.typ'), theme);
     fs.writeFileSync(resolve(artifactRoot, path, theme, 'main.multi.sir.in'), vec);
   }
 }

@@ -63,7 +63,11 @@
         {% endif %}
 
         <section class="body">
-            <div id="typst-app" class="typst-app"></div>
+            {% if page.extra.hide_title %}
+                <div id="typst-app" class="typst-app"></div>
+            {% else %}
+                <div id="typst-app" class="typst-app with-title"></div>
+            {% endif %}
         </section>
 
         <script src={{ get_url(path="svg_utils.js") }}></script>

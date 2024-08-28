@@ -20,13 +20,12 @@
  * limitations under the License.
  ********************************************************************************/
 
-#typst-app-container {
-  padding: 10px;
+#typst-app {
   display: flex;
   justify-content: center;
 }
 
-#typst-app {
+#typst-app.with-title {
   margin: 5px;
 }
 
