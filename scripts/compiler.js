@@ -10,13 +10,14 @@ class Compiler {
     const fonts = resolve(this.baseDir, 'fonts');
     const assetsFonts = resolve(this.baseDir, 'assets/fonts');
     const assetFonts = resolve(this.baseDir, 'asset/fonts');
+    const staticFonts = resolve(this.baseDir, 'static/fonts');
     console.log(
       '[typst] using fonts in',
-      resolve(this.baseDir, '{fonts,assets/fonts,asset/fonts}'),
+      resolve(this.baseDir, '{fonts, assets/fonts, asset/fonts, static/fonts}'),
     );
     const compileArgs = {
       workspace: this.baseDir,
-      fontArgs: [{ fontPaths: [fonts, assetsFonts, assetFonts] }],
+      fontArgs: [{ fontPaths: [fonts, assetsFonts, assetFonts, staticFonts] }],
       // todo: move this to session after we fixed the bug
       inputs: { 'x-target': 'web-light' },
     };
