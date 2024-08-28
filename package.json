@@ -10,11 +10,8 @@
     "frontend"
   ],
   "scripts": {
-    "install:bin": "node scripts/install-bin.js",
     "reset": "rm -rf static/typst && cd frontend && npm run reset",
-    "fe": "cd frontend && npm install && npm run build:prod",
-    "typst": "cd typst && ./build.sh",
-    "build:frontend": "yarn workspace blog-frontend build:prod",
+    "build:fe": "yarn workspace blog-frontend build:prod",
     "build:typ": "node scripts/build-posts.js",
     "serve": "zola serve"
   },

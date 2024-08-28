@@ -6,5 +6,5 @@ date = "2024-07-09"
 tags=["documentation"]
 
 [extra]
-typst = "test"
+typst = "posts/test"
 +++

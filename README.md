@@ -1,6 +1,6 @@
 # apollo-typst
 
-Typst blog template based on [Zola](https://getzola.org), [typst.ts](https://github.com/Myriad-Dreamin/typst.ts), and [apollo](https://github.com/not-matthias/apollo).
+Typst static site template based on [Zola](https://getzola.org), [typst.ts](https://github.com/Myriad-Dreamin/typst.ts), and [apollo](https://github.com/not-matthias/apollo).
 
 ## Features
 
@@ -11,22 +11,28 @@ Typst blog template based on [Zola](https://getzola.org), [typst.ts](https://git
 
 ### Preparation
 
-- Install `make`, `cargo`, and `yarn`.
-- Install dependencies: `yarn install`, `yarn install:bin`.
-- Configure your own blog in `config.toml`. Full configuration options can be found in the [apollo documentation](https://github.com/not-matthias/apollo/blob/main/content/posts/configuration.md).
+- Install `yarn` and execute ``yarn install`.
+- Install `zola` following its [document](https://www.getzola.org/documentation/getting-started/installation/) of Zola.
+- Install `typst-ts-cli` following its [document](https://github.com/Myriad-Dreamin/typst.ts/tree/main?tab=readme-ov-file#concept-precompiler).
+- Configure your site in `config.toml`. Full configuration options can be found in the [apollo documentation](https://github.com/not-matthias/apollo/blob/main/content/posts/configuration.md).
 
 ### Write posts with Typst
 
-- Create a new typst workspace under the `typst` directory and write your post with Typst.
+- `appollo-typst` support both single files and workspace:s
 
-- Create a `.md` file in the `content` directory and write the metadata of the post in the front matter. Then, add the `extra.typst` field to the front matter, specifying the name of the typst workspace. The content of the markdown file will be ignored; instead, the content from the typst file will be utilized. For an example, refer to `content/posts/test.md`.
+  - If a subdirectory of typ contains `main.typ`, it will be treated as a workspace, with `main.typ` serving as the entry point. 
+
+  - Otherwise, each .typ file within the subdirectory will be compiled independently.
+
+- Create a `.md` file in the `content` directory and write the metadata of the post in the front matter. Then, add the `extra.typst` field to the front matter, specifying the name (relative path to `typ/`) of the typst file or the typst workspace. The content of the markdown file will be ignored; instead, the content from the typst file will be utilized. For an example, refer to `content/posts/test.md`.
+
 - If the typst output has its own title, you can set `extra.hide_title = true` to prevent zola from generating a redundant title.
 
 ### Build
 
 ```shell
 # If you updated the frontend
-yarn build:frontend
+yarn build:fe
 # If you updated the typst
 yarn build:typ
 # Final zola build
@@ -39,7 +45,7 @@ yarn build
 yarn serve
 ```
 
-### Deployment[WIP]
+### Deployment
 
 To deploy your site to GitHub Pages, you can use the provided GitHub Action in branch `action-v1`:
 
