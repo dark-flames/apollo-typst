@@ -2,6 +2,8 @@ const { NodeCompiler, DynLayoutCompiler } = require('@myriaddreamin/typst-ts-nod
 const { resolve } = require('path');
 const breakpoints = require('../frontend/breakpoints.json');
 
+breakpoints.reverse();
+
 class Compiler {
   constructor({ baseDir }) {
     this.baseDir = baseDir;
@@ -27,19 +29,7 @@ class Compiler {
     const dyn = target => {
       const c = DynLayoutCompiler.fromBoxed(NodeCompiler.create(compileArgs).intoBoxed());
       c.setTarget(target);
-      // By default we have 40 breakpoints
-      // we shrink it a bit
-      // lg: 660pt (990px ~ 1000px)
-      // lg-50pt
-      // lg-100pt
-      // lg-150pt
-      // 450pt  
-      // md: 510pt (765px ~ 768px)
-      // sm: 382pt (573px ~ 576px)
-      // 300pt
-      // 250pt
-      // 200pt
-      c.setLayoutWidths(breakpoints.reverse());
+      c.setLayoutWidths(breakpoints);
       return c;
     };
     this.dyn = {
