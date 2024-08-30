@@ -11,14 +11,14 @@ Typst static site template based on [Zola](https://getzola.org), [typst.ts](http
 
 ### Preparation
 
-- Install `yarn` and execute ``yarn install`.
-- Install `zola` following its [document](https://www.getzola.org/documentation/getting-started/installation/) of Zola.
+- Install `yarn` and execute `yarn install`.
+- Install `zola` following its [document](https://www.getzola.org/documentation/getting-started/installation/).
 - Install `typst-ts-cli` following its [document](https://github.com/Myriad-Dreamin/typst.ts/tree/main?tab=readme-ov-file#concept-precompiler).
 - Configure your site in `config.toml`. Full configuration options can be found in the [apollo documentation](https://github.com/not-matthias/apollo/blob/main/content/posts/configuration.md).
 
 ### Write posts with Typst
 
-- `appollo-typst` support both single files and workspace:s
+- `appollo-typst` support both single files and workspaces:
 
   - If a subdirectory of typ contains `main.typ`, it will be treated as a workspace, with `main.typ` serving as the entry point. 
 
@@ -69,3 +69,4 @@ jobs:
           deploy-branch: static
         # deploy-repo: ${{ another/repo }}
 ```
+If you want to use custom page, remember to put `CNAME` file in the `static/`.
