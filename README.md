@@ -1,6 +1,6 @@
 # apollo-typst
 
-Typst static site template based on [Zola](https://getzola.org), [typst.ts](https://github.com/Myriad-Dreamin/typst.ts), and [apollo](https://github.com/not-matthias/apollo).
+Typst static site template based on [Zola](https://getzola.org), [typst.ts](https://github.com/Myriad-Dreamin/typst.ts), and [apollo](https://github.com/not-matthias/apollo). See a live preview [here](https://dark-flames.com).
 
 ## Features
 
@@ -36,7 +36,7 @@ yarn build:fe
 # If you updated the typst
 yarn build:typ
 # Final zola build
-yarn build
+zola build
 ```
 
 ### Develop
