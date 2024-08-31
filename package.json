@@ -17,6 +17,7 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "@myriaddreamin/typst-ts-node-compiler": "^0.5.0-rc6"
+    "@myriaddreamin/typst-ts-node-compiler": "^0.5.0-rc6",
+    "toml": "^3.0.0"
   }
 }

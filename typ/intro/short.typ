@@ -6,7 +6,7 @@
 #import "@preview/unequivocal-ams:0.1.0": theorem, proof
 
 #show: project.with(
-  title: "Test",
+  title: [],
   authors: (
     (
       name: "Darkflames",
@@ -21,6 +21,10 @@
 
 #set par(justify: true)
 #set heading(numbering: "1.")
+
+#align(center, text(17pt)[
+  Test - Version: Short
+])
 
 = Beginning <beg>
 Call me Ishmael. Some years ago --- never mind how long precisely ---
