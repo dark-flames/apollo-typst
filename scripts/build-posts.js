@@ -119,6 +119,9 @@ function main() {
     execSync(`typst-ts-cli package link --manifest ${root}/packages/typst-apollo/typst.toml`);
   } catch {}
 
+  console.log('[typst] using packages:');
+  console.log(execSync(`typst-ts-cli package list`).toString());
+
   console.log('[typst] using fonts:');
   for (const fontPath of fontPaths) {
     console.log(`- ${fontPath}`);

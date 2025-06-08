@@ -1,4 +1,4 @@
-#import "@preview/shiroa:0.1.0": target
+#import "@preview/shiroa:0.2.3": target
 
 
 // Theme (Colors)

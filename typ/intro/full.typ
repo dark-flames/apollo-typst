@@ -1,9 +1,7 @@
-#import "@preview/shiroa:0.1.0": *
 #import "@preview/typst-apollo:0.1.0": pages
-#import pages: *
-#import "@preview/shiroa:0.1.0": get-page-width, target, is-web-target, is-pdf-target, plain-text
-
+#import "@preview/shiroa:0.2.3": *
 #import "@preview/unequivocal-ams:0.1.0": theorem, proof
+#import pages: *
 
 #show: project.with(
   title: [],

@@ -20,7 +20,7 @@
  * limitations under the License.
  ********************************************************************************/
  
-#import "@preview/shiroa:0.1.0": *
+#import "@preview/shiroa:0.2.3": *
 #import "./pages.typ": project, part-style
 
 #let _page-project = project

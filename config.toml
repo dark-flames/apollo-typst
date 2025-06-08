@@ -23,6 +23,8 @@ menu = [
   { name = "/tags", url = "/tags", weight = 2 },
   { name = "/about", url = "/about", weight = 3 },
 ]
+mathjax = true
+mathjax_dollar_inline_enable = true
 
 socials = [
   { name = "twitter", url = "https://twitter.com/Darkf1ames", icon = "twitter" },

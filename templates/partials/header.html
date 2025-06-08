@@ -139,7 +139,7 @@
 
     {% if page.extra.typst | default(value=false) %}
         <script type="module" src={{ get_url(path="apollo-typst/apollo.typst.mjs") }}></script>
-        <link rel="stylesheet" href={{ get_url(path="apollo-typst/style.css") }}>
+        <link rel="stylesheet" href={{ get_url(path="apollo-typst/apollo.typst.css") }}>
         <script>
             /// https://segmentfault.com/a/1190000016574288
             (function () {
