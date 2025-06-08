@@ -1,7 +1,8 @@
+.idea
+.vscode
 static/typst/*
 node_modules
 public/
-.idea
 target/
 static/apollo-typst
 static/typst
